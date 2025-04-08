@@ -18,103 +18,71 @@ using static System.Net.Mime.MediaTypeNames;
 namespace WPFextend
 {
     /// <summary>
-    /// Interaction logic for FloatBox.xaml
+    /// Interaction logic for IntegerBox.xaml
     /// </summary>
-    public partial class FloatBox : UserControl
+    public partial class NumberBox : UserControl
     {
-        private double _currentValue;
-
-        private double _intervalSize;
-
-
-
         bool OnlyPositive { get; set; }
+
+        public double CurrentValue
+        {
+            get => (double)GetValue(CurrentValueProperty);
+            set => SetValue(CurrentValueProperty, value);
+        }
+        public static readonly DependencyProperty CurrentValueProperty =
+       DependencyProperty.Register("CurrentValue", typeof(double), typeof(NumberBox), new PropertyMetadata(default(double)));
 
         public double IntervalSize
         {
-            get
-            {
-                return _intervalSize;
-            }
-            set
-            {
-                _intervalSize = Math.Abs(value);
-            }
+            get => (double)GetValue(IntervalSizeProperty);
+            set => SetValue(IntervalSizeProperty, value);
         }
+        public static readonly DependencyProperty IntervalSizeProperty =
+       DependencyProperty.Register("IntervalSize", typeof(double), typeof(NumberBox), new PropertyMetadata(default(double)));
 
 
-        public float CurrentValue
-        {
-            get
-            {
-                return (float)_currentValue;
-            }
-            set
-            {
-                _currentValue = value;
-                textBox.Text = CurrentValue.ToString();
-            }
-        }
-
-
-        public FloatBox()
+        public NumberBox()
         {
             InitializeComponent();
             DataContext = this;
         }
 
-        /// <summary>
-        /// Determines if entered text is valid and discards the input if it is not.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private new void PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (IsTextAllowed(textBox.Text + e.Text))
+            if (IsTextAllowed(e.Text))
             {
 
                 //textBox.Text = CurrentValue.ToString();
             }
             else { e.Handled = true; }
-
-
         }
 
 
         private bool IsTextAllowed(string text)
         {
-            float val;
-            bool IsFloat = float.TryParse(text, out val);
+            double val;
+            bool isNum = double.TryParse(text, out val);
 
             if (OnlyPositive)
             {
-                return IsFloat && val >= 0;
+                return isNum && val >= 0;
             }
 
-            return IsFloat;
+            return isNum;
         }
 
 
         private void UpButton(object sender, RoutedEventArgs e)
         {
-            CurrentValue += (float)_intervalSize;
+            CurrentValue += IntervalSize;
         }
 
         private void DownButton(object sender, RoutedEventArgs e)
         {
-            CurrentValue -= (float)_intervalSize;
+            CurrentValue -= IntervalSize;
         }
 
-        private void OnTextChange(object sender, TextChangedEventArgs e)
-        {
-            if (textBox.IsKeyboardFocused) { double.TryParse(textBox.Text, out _currentValue); }
-        }
 
-        /// <summary>
-        /// Discards pasted content if it is not valid.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void TextBoxPasting(object sender, DataObjectPastingEventArgs e)
         {
             if (e.DataObject.GetDataPresent(typeof(String)))
