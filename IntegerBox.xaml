@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="WPFextend.IntegerBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFextend"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="75">
+
+    <StackPanel Orientation="Horizontal">
+        <TextBox Name="textBox" Width="50" Height="20" Text="{Binding CurrentValue}" PreviewTextInput="PreviewTextInput" TextChanged="OnTextChange" DataObject.Pasting="TextBoxPasting"/>
+        <StackPanel Margin="5,0,0,0" Height="30">
+            <RepeatButton Content="▲" FontSize="8" Width="20" Height="15" Delay="300" Interval="100" Click="UpButton"/>
+            <RepeatButton Content="▼" FontSize="8" Width="20" Height="15" Delay="300" Interval="100" Click="DownButton"/>
+        </StackPanel>
+    </StackPanel>
+
+</UserControl>
