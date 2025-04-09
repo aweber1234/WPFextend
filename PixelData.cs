@@ -23,28 +23,23 @@ namespace WPFextend
         /// <summary>
         /// byte array which stores bgra pixel data.
         /// </summary>
-        public byte[] array;
+        public int[] array;
 
         public PixelData(int width, int height)
         {
-            //4 bytes per pixel, bgra
-            array = new byte[width * height * 4];
+            this.width = width;
+            this.height = height;
+            array = new int[width * height];
         }
 
         public void SetPixelColor(Color color, int x, int y)
         {
             // Calculate the index of the pixel
-            int index = (y * width + x) * 4;
+            int index = y * width + x;
 
-            if (index >= 0 && index + 3 < array.Length)
+            if (index >= 0 && index < array.Length)
             {
-                byte[] bgra = ExtensionMethods.ColorToBgraBytes(color);
-
-                // Set the pixel in the array
-                array[index] = bgra[0];     // Blue
-                array[index + 1] = bgra[1]; // Green
-                array[index + 2] = bgra[2]; // Red
-                array[index + 3] = bgra[3]; // Alpha
+                array[index] = ExtensionMethods.ColorToInt(color);
             }
             else
             {
@@ -56,14 +51,16 @@ namespace WPFextend
         public Color GetPixelColor(int x, int y)
         {
             // Calculate the index of the pixel
-            int index = (y * width + x) * 4;
+            int index = (y * width + x);
 
-            if (index >= 0 && index + 3 < array.Length)
+            if (index >= 0 && index < array.Length)
             {
-                byte b = array[index];
-                byte g = array[index + 1];
-                byte r = array[index + 2];
-                byte a = array[index + 3];
+                int val = array[index];
+
+                byte a = (byte)((val >> 24) & 0xFF);
+                byte r = (byte)((val >> 16) & 0xFF);
+                byte g = (byte)((val >> 8) & 0xFF);
+                byte b = (byte)(val & 0xFF);
 
                 return Color.FromArgb(a, r, g, b);
             }

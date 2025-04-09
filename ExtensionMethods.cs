@@ -35,7 +35,11 @@ namespace WPFextend
             return adjusted;
         }
 
-        // Convert Color to BGRA byte array
+        /// <summary>
+        /// Convert Color to BGRA byte array
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns></returns>
         public static byte[] ColorToBgraBytes(this Color color)
         {
             return new byte[]
@@ -47,9 +51,19 @@ namespace WPFextend
             };
         }
 
+        /// <summary>
+        /// Converts color to 0xAARRGGBB int
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns></returns>
+        public static int ColorToInt(this Color color)
+        {
+            return (color.A << 24) | (color.R << 16) | (color.G << 8) | color.B;
+        }
+
         public static void DrawPixelDataToBitmap(this WriteableBitmap bitmap, PixelData pixelData, int x, int y)
         {
-            if (x >= 0 && y >= 0 && x + pixelData.width < bitmap.Width && y + pixelData.height < bitmap.Height)
+            if (x >= 0 && y >= 0 && x + pixelData.width <= bitmap.Width && y + pixelData.height <= bitmap.Height)
             {
                 Int32Rect drawArea = new Int32Rect(x, y, pixelData.width, pixelData.height);
 
@@ -61,7 +75,10 @@ namespace WPFextend
                     0                                    // Offset (not needed here, so set to 0)
                 );
             }
-            else { Debug.WriteLine("DrawPixelDataToBitmap draw area is outside of bounds for WriteableBitmap"); }
+            else 
+            {
+                Debug.WriteLine("DrawPixelDataToBitmap draw area is outside of bounds for WriteableBitmap"); 
+            }
                       
         }
 

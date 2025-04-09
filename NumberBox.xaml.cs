@@ -58,17 +58,18 @@ namespace WPFextend
         }
 
 
+
         private bool IsTextAllowed(string text)
         {
             double val;
-            bool isNum = double.TryParse(text, out val);
-
+            bool isNum = double.TryParse(textBox.Text + text, out val);
+            
             if (OnlyPositive)
             {
                 return isNum && val >= 0;
             }
-
             return isNum;
+
         }
 
 
