@@ -10,8 +10,6 @@ using System.Windows.Media.Media3D;
 
 namespace WPFextend
 {
-
-
     /// <summary>
     /// BGRA pixel data stored as byte array. 
     /// </summary>
@@ -45,7 +43,6 @@ namespace WPFextend
             {
                 Debug.WriteLine("SetPixelColor out of bounds pixel index...");
             }
-
         }
 
         public Color GetPixelColor(int x, int y)

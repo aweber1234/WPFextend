@@ -1,0 +1,91 @@
+﻿<Window x:Class="WPFextend.ColorCrafter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFextend"
+             mc:Ignorable="d" 
+            Title="Color Crafter"
+         
+        
+             ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        Background="DarkGray"
+        >
+
+    <Grid Width="Auto" Height="Auto">
+        <StackPanel Margin="10,10,10,10">
+
+
+            <StackPanel Orientation="Horizontal" >
+                <Label VerticalAlignment="Center" Width="75">Color Old:</Label>
+                <Rectangle x:Name="ColorPreviewOld"     Width="100" Height="40"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
+                <Label VerticalAlignment="Center" Width="75">Color New:</Label>
+                <Rectangle x:Name="ColorPreviewNew"     Width="100" Height="40"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
+                <Label Width="70">Red</Label>
+                <Slider x:Name="RedSlider" VerticalAlignment="Center" Width="185" Margin="0,0,10,0"
+                            Minimum="{Binding Minimum, ElementName=RedNumBox}" Maximum="{Binding Maximum, ElementName=RedNumBox}" IsSnapToTickEnabled="True"
+                            Value="{Binding CurrentValue, ElementName=RedNumBox}" TickFrequency="{Binding IntervalSize, ElementName=RedNumBox}"/>
+                <local:NumberBox x:Name="RedNumBox" ValueChanged="OnRGBchange" IntervalSize="1" Minimum="0" Maximum="255"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Label Width="70">Green</Label>
+                <Slider x:Name="GreenSlider" VerticalAlignment="Center" Width="185" Margin="0,0,10,0"
+                            Minimum="{Binding Minimum, ElementName=GreenNumBox}" Maximum="{Binding Maximum, ElementName=GreenNumBox}" IsSnapToTickEnabled="True"
+                            Value="{Binding CurrentValue, ElementName=GreenNumBox}" TickFrequency="{Binding IntervalSize, ElementName=GreenNumBox}"/>
+                <local:NumberBox x:Name="GreenNumBox" ValueChanged="OnRGBchange" IntervalSize="1" Minimum="0" Maximum="255"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Label Width="70">Blue</Label>
+                <Slider x:Name="BlueSlider" VerticalAlignment="Center" Width="185" Margin="0,0,10,0"
+                            Minimum="{Binding Minimum, ElementName=BlueNumBox}" Maximum="{Binding Maximum, ElementName=BlueNumBox}" IsSnapToTickEnabled="True"
+                            Value="{Binding CurrentValue, ElementName=BlueNumBox}" TickFrequency="{Binding IntervalSize, ElementName=BlueNumBox}"/>
+                <local:NumberBox x:Name="BlueNumBox" ValueChanged="OnRGBchange" IntervalSize="1" Minimum="0" Maximum="255"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Label Width="70">Hue</Label>
+                <Slider x:Name="HueSlider" VerticalAlignment="Center" Width="185" Margin="0,0,10,0"
+                            Minimum="{Binding Minimum, ElementName=HueNumBox}" Maximum="{Binding Maximum, ElementName=HueNumBox}" IsSnapToTickEnabled="True"
+                            Value="{Binding CurrentValue, ElementName=HueNumBox}" TickFrequency="{Binding IntervalSize, ElementName=HueNumBox}"/>
+                <local:NumberBox x:Name="HueNumBox" ValueChanged="OnHSVchange" IntervalSize="1" Minimum="0" Maximum="365"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Label Width="70">Saturation</Label>
+                <Slider x:Name="SaturationSlider" VerticalAlignment="Center" Width="185" Margin="0,0,10,0"
+                            Minimum="{Binding Minimum, ElementName=SaturationNumBox}" Maximum="{Binding Maximum, ElementName=SaturationNumBox}" IsSnapToTickEnabled="True"
+                            Value="{Binding CurrentValue, ElementName=SaturationNumBox}" TickFrequency="{Binding IntervalSize, ElementName=SaturationNumBox}"/>
+                <local:NumberBox x:Name="SaturationNumBox" ValueChanged="OnHSVchange" IntervalSize="1" Minimum="0" Maximum="100"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Label Width="70">Value</Label>
+                <Slider x:Name="ValueSlider" VerticalAlignment="Center" Width="185" Margin="0,0,10,0"
+                            Minimum="{Binding Minimum, ElementName=ValueNumBox}" Maximum="{Binding Maximum, ElementName=ValueNumBox}" IsSnapToTickEnabled="True"
+                            Value="{Binding CurrentValue, ElementName=ValueNumBox}" TickFrequency="{Binding IntervalSize, ElementName=ValueNumBox}"/>
+                <local:NumberBox x:Name="ValueNumBox" ValueChanged="OnHSVchange" IntervalSize="1" Minimum="0" Maximum="100"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10,10,10">
+                <Label>Hexadecimal Notation:</Label>
+                <TextBox x:Name="HexNotation" Width="100" FontSize="14" TextChanged="OnColorTextChange"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Button Margin="0,0,20,0" Width="50" Content="Reset" Click="Click_Reset"/>
+                <Button Margin="0,0,20,0" Width="50" Content="Set" Click="Click_Set"/>
+                <Button Margin="0,0,110,0" Width="50" Content="OK" Click="Click_OK"/>
+                <Button Content="Cancel" Width="50" Click="Click_Cancel"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
